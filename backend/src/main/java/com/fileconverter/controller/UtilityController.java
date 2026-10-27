@@ -15,7 +15,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/tools")
-@CrossOrigin(origins = "*")
+@CrossOrigin(originPatterns = "*")
 public class UtilityController {
 
     private static final Logger log = LoggerFactory.getLogger(UtilityController.class);

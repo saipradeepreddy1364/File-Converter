@@ -19,7 +19,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/convert")
-@CrossOrigin(origins = "*")
+@CrossOrigin(originPatterns = "*")
 public class ConversionController {
 
     private static final Logger log = LoggerFactory.getLogger(ConversionController.class);

@@ -17,7 +17,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/pdf")
-@CrossOrigin(origins = "*")
+@CrossOrigin(originPatterns = "*")
 public class PdfOrganizeController {
 
     private static final Logger log = LoggerFactory.getLogger(PdfOrganizeController.class);

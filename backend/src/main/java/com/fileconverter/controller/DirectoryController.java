@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(originPatterns = "*")
 public class DirectoryController {
 
     private final StorageService storageService;

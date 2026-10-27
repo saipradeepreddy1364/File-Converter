@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("/api/ocr")
-@CrossOrigin(origins = "*")
+@CrossOrigin(originPatterns = "*")
 public class OcrController {
 
     private static final Logger log = LoggerFactory.getLogger(OcrController.class);

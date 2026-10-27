@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/pdf/security")
-@CrossOrigin(origins = "*")
+@CrossOrigin(originPatterns = "*")
 public class PdfSecurityController {
 
     private static final Logger log = LoggerFactory.getLogger(PdfSecurityController.class);

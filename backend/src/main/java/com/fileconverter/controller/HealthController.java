@@ -14,7 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(originPatterns = "*")
 public class HealthController {
 
     private final StorageService storageService;

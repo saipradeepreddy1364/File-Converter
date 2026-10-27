@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/pdf/optimize")
-@CrossOrigin(origins = "*")
+@CrossOrigin(originPatterns = "*")
 public class PdfOptimizeController {
 
     private static final Logger log = LoggerFactory.getLogger(PdfOptimizeController.class);
