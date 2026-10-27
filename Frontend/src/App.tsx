@@ -37,6 +37,14 @@ function App() {
     Object.values(catalog).forEach((categoryTools) => {
       list.push(...categoryTools);
     });
+
+    // Ensure PowerPoint to PDF is on the first row (position 0)
+    const pptxIdx = list.findIndex((t) => t.id === 'pptx-to-pdf');
+    if (pptxIdx > 0) {
+      const [pptxTool] = list.splice(pptxIdx, 1);
+      list.unshift(pptxTool);
+    }
+
     return list;
   }, [catalog]);
 

@@ -1,6 +1,88 @@
 import type { ToolMetadata } from '../types';
 
 export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
+  "Convert to PDF": [
+    {
+      id: "pptx-to-pdf",
+      name: "PowerPoint to PDF",
+      category: "Convert to PDF",
+      description: "Convert PPT and PPTX presentation slides into formatted PDF documents.",
+      icon: "Presentation",
+      badge: "Popular",
+      route: "/api/convert/to-pdf",
+      acceptedFormats: [".pptx", ".ppt"],
+      outputFormats: [".pdf"],
+      isMultiFile: false
+    },
+    {
+      id: "jpg-to-pdf",
+      name: "Images to PDF",
+      category: "Convert to PDF",
+      description: "Transform images (JPG, PNG, WebP, BMP) into a high-resolution PDF.",
+      icon: "FileImage",
+      badge: "Popular",
+      route: "/api/convert/to-pdf",
+      acceptedFormats: [".jpg", ".jpeg", ".png", ".webp", ".bmp"],
+      outputFormats: [".pdf"],
+      isMultiFile: true,
+      multiFile: true
+    },
+    {
+      id: "docx-to-pdf",
+      name: "Word (DOCX) to PDF",
+      category: "Convert to PDF",
+      description: "Convert Microsoft Word documents into clean, formatted PDF files.",
+      icon: "FileType",
+      route: "/api/convert/to-pdf",
+      acceptedFormats: [".docx"],
+      outputFormats: [".pdf"],
+      isMultiFile: false
+    },
+    {
+      id: "xlsx-to-pdf",
+      name: "Excel to PDF",
+      category: "Convert to PDF",
+      description: "Render spreadsheet sheets into landscape formatted PDF tables.",
+      icon: "Table",
+      route: "/api/convert/to-pdf",
+      acceptedFormats: [".xlsx", ".xls"],
+      outputFormats: [".pdf"],
+      isMultiFile: false
+    },
+    {
+      id: "csv-to-pdf",
+      name: "CSV to PDF",
+      category: "Convert to PDF",
+      description: "Convert comma-separated data tables into aligned PDF documents.",
+      icon: "FileSpreadsheet",
+      route: "/api/convert/to-pdf",
+      acceptedFormats: [".csv"],
+      outputFormats: [".pdf"],
+      isMultiFile: false
+    },
+    {
+      id: "txt-to-pdf",
+      name: "TXT to PDF",
+      category: "Convert to PDF",
+      description: "Convert plain text documents with word-wrap and pagination into PDF.",
+      icon: "FileText",
+      route: "/api/convert/to-pdf",
+      acceptedFormats: [".txt"],
+      outputFormats: [".pdf"],
+      isMultiFile: false
+    },
+    {
+      id: "md-to-pdf",
+      name: "Markdown to PDF",
+      category: "Convert to PDF",
+      description: "Parse Markdown files and compile into clean PDF format.",
+      icon: "BookOpen",
+      route: "/api/convert/to-pdf",
+      acceptedFormats: [".md", ".markdown"],
+      outputFormats: [".pdf"],
+      isMultiFile: false
+    }
+  ],
   "Organize PDF": [
     {
       id: "merge-pdf",
@@ -137,88 +219,6 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       icon: "Minimize2",
       route: "/api/pdf/optimize/flatten",
       acceptedFormats: [".pdf"],
-      outputFormats: [".pdf"],
-      isMultiFile: false
-    }
-  ],
-  "Convert to PDF": [
-    {
-      id: "pptx-to-pdf",
-      name: "PowerPoint to PDF",
-      category: "Convert to PDF",
-      description: "Convert PPT and PPTX presentation slides into formatted PDF documents.",
-      icon: "Presentation",
-      badge: "Popular",
-      route: "/api/convert/to-pdf",
-      acceptedFormats: [".pptx", ".ppt"],
-      outputFormats: [".pdf"],
-      isMultiFile: false
-    },
-    {
-      id: "jpg-to-pdf",
-      name: "Images to PDF",
-      category: "Convert to PDF",
-      description: "Transform images (JPG, PNG, WebP, BMP) into a high-resolution PDF.",
-      icon: "FileImage",
-      badge: "Popular",
-      route: "/api/convert/to-pdf",
-      acceptedFormats: [".jpg", ".jpeg", ".png", ".webp", ".bmp"],
-      outputFormats: [".pdf"],
-      isMultiFile: true,
-      multiFile: true
-    },
-    {
-      id: "docx-to-pdf",
-      name: "Word (DOCX) to PDF",
-      category: "Convert to PDF",
-      description: "Convert Microsoft Word documents into clean, formatted PDF files.",
-      icon: "FileType",
-      route: "/api/convert/to-pdf",
-      acceptedFormats: [".docx"],
-      outputFormats: [".pdf"],
-      isMultiFile: false
-    },
-    {
-      id: "xlsx-to-pdf",
-      name: "Excel to PDF",
-      category: "Convert to PDF",
-      description: "Render spreadsheet sheets into landscape formatted PDF tables.",
-      icon: "Table",
-      route: "/api/convert/to-pdf",
-      acceptedFormats: [".xlsx", ".xls"],
-      outputFormats: [".pdf"],
-      isMultiFile: false
-    },
-    {
-      id: "csv-to-pdf",
-      name: "CSV to PDF",
-      category: "Convert to PDF",
-      description: "Convert comma-separated data tables into aligned PDF documents.",
-      icon: "FileSpreadsheet",
-      route: "/api/convert/to-pdf",
-      acceptedFormats: [".csv"],
-      outputFormats: [".pdf"],
-      isMultiFile: false
-    },
-    {
-      id: "txt-to-pdf",
-      name: "TXT to PDF",
-      category: "Convert to PDF",
-      description: "Convert plain text documents with word-wrap and pagination into PDF.",
-      icon: "FileText",
-      route: "/api/convert/to-pdf",
-      acceptedFormats: [".txt"],
-      outputFormats: [".pdf"],
-      isMultiFile: false
-    },
-    {
-      id: "md-to-pdf",
-      name: "Markdown to PDF",
-      category: "Convert to PDF",
-      description: "Parse Markdown files and compile into clean PDF format.",
-      icon: "BookOpen",
-      route: "/api/convert/to-pdf",
-      acceptedFormats: [".md", ".markdown"],
       outputFormats: [".pdf"],
       isMultiFile: false
     }
