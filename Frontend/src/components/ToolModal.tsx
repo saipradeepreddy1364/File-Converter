@@ -38,10 +38,11 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
     e.preventDefault();
     setIsDragging(false);
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      const newFiles = Array.from(e.dataTransfer.files);
       if (tool.isMultiFile) {
-        setSelectedFiles(Array.from(e.dataTransfer.files));
+        setSelectedFiles((prev) => [...prev, ...newFiles]);
       } else {
-        setSelectedFiles([e.dataTransfer.files[0]]);
+        setSelectedFiles([newFiles[0]]);
       }
       setError(null);
     }
@@ -49,18 +50,32 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
+      const newFiles = Array.from(e.target.files);
       if (tool.isMultiFile) {
-        setSelectedFiles(Array.from(e.target.files));
+        setSelectedFiles((prev) => [...prev, ...newFiles]);
       } else {
-        setSelectedFiles([e.target.files[0]]);
+        setSelectedFiles([newFiles[0]]);
       }
       setError(null);
+      e.target.value = '';
     }
   };
+
+  const removeFile = (index: number) => {
+    setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const isMergeTool = tool.id === 'merge-pdf' || tool.name.toLowerCase().includes('merge');
+  const isBelowMinimum = isMergeTool && selectedFiles.length < 2;
 
   const handleSubmit = async () => {
     if (selectedFiles.length === 0 && tool.acceptedFormats.length > 0) {
       setError('Please select a file to process.');
+      return;
+    }
+
+    if (isMergeTool && selectedFiles.length < 2) {
+      setError('Merging requires at least 2 PDF documents. Please add more files.');
       return;
     }
 
@@ -305,19 +320,34 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
                 <p className="text-sm font-semibold text-slate-200">
                   {selectedFiles.length > 0
                     ? `${selectedFiles.length} file(s) selected`
+                    : isMergeTool
+                    ? 'Click or drag at least 2 PDF files to merge'
                     : 'Click or drag files here to upload'}
                 </p>
                 <p className="text-xs text-slate-400 mt-1">
-                  Supported formats: {tool.acceptedFormats.join(', ') || 'Any file'}
+                  {isMergeTool
+                    ? 'Minimum 2 PDFs required • Formats: .pdf'
+                    : `Supported formats: ${tool.acceptedFormats.join(', ') || 'Any file'}`}
                 </p>
               </div>
 
               {/* Selected Files List */}
               {selectedFiles.length > 0 && (
                 <div className="space-y-2">
-                  <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
-                    Selected File{selectedFiles.length > 1 ? 's' : ''}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                      Selected Files ({selectedFiles.length}{isMergeTool ? ' / 2 min' : ''})
+                    </span>
+                    {tool.isMultiFile && (
+                      <button
+                        type="button"
+                        onClick={() => document.getElementById('tool-file-input')?.click()}
+                        className="text-xs text-indigo-400 hover:text-indigo-300 font-medium cursor-pointer"
+                      >
+                        + Add more files
+                      </button>
+                    )}
+                  </div>
                   <div className="max-h-36 overflow-y-auto space-y-1.5 pr-1">
                     {selectedFiles.map((file, idx) => (
                       <div
@@ -328,12 +358,30 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
                           <FileIcon className="w-4 h-4 text-indigo-400 shrink-0" />
                           <span className="truncate">{file.name}</span>
                         </div>
-                        <span className="text-slate-500 shrink-0 font-mono">
-                          {(file.size / 1024).toFixed(1)} KB
-                        </span>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-slate-500 font-mono">
+                            {(file.size / 1024).toFixed(1)} KB
+                          </span>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removeFile(idx);
+                            }}
+                            className="w-5 h-5 rounded hover:bg-slate-700 text-slate-400 hover:text-rose-400 flex items-center justify-center transition-colors cursor-pointer"
+                            title="Remove file"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
+                  {isBelowMinimum && (
+                    <p className="text-xs text-amber-400 font-medium">
+                      ⚠️ Please add at least {2 - selectedFiles.length} more PDF to merge.
+                    </p>
+                  )}
                 </div>
               )}
 
@@ -472,14 +520,16 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
           {!result && (
             <button
               onClick={handleSubmit}
-              disabled={isProcessing}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-lg shadow-indigo-600/25 disabled:opacity-50 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              disabled={isProcessing || isBelowMinimum}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-lg shadow-indigo-600/25 disabled:opacity-40 disabled:cursor-not-allowed transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               {isProcessing ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
                   <span>Processing...</span>
                 </>
+              ) : isBelowMinimum ? (
+                <span>{selectedFiles.length === 0 ? 'Select at least 2 PDFs' : 'Add at least 1 more PDF'}</span>
               ) : (
                 <span>{getActionLabel()}</span>
               )}
