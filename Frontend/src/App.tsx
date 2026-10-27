@@ -8,10 +8,7 @@ import { ToolModal } from './components/ToolModal';
 import { OcrStudioModal } from './components/OcrStudioModal';
 import { OcrBenchmarkModal } from './components/OcrBenchmarkModal';
 import './App.css';
-import {
-  Sparkles, ShieldCheck, Zap, Cpu,
-  Search, FileCheck2, ArrowRight
-} from 'lucide-react';
+import { Search, FileCheck2 } from 'lucide-react';
 
 function App() {
   const [catalog, setCatalog] = useState<Record<string, ToolMetadata[]>>(DEFAULT_CATALOG);
@@ -77,65 +74,19 @@ function App() {
       />
 
       {/* Hero Section */}
-      <section className="relative pt-12 pb-16 px-4 sm:px-6 lg:px-8 hero-radial-bg overflow-hidden border-b border-white/5">
-        <div className="max-w-5xl mx-auto text-center space-y-6">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Enterprise PDF Toolkit & In-House OCR Engine</span>
-          </div>
-
+      <section className="relative pt-10 pb-12 px-4 sm:px-6 lg:px-8 hero-radial-bg overflow-hidden border-b border-white/5">
+        <div className="max-w-4xl mx-auto text-center space-y-4">
           {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
             Convert, Secure & Recognize <br />
             <span className="gradient-text">Any File or Document</span>
           </h1>
 
           {/* Subtitle */}
           <p className="max-w-2xl mx-auto text-sm sm:text-base text-slate-400 leading-relaxed">
-            Privacy-first file conversion platform with 40+ utilities. Includes a proprietary
-            neural-pattern OCR engine for scanned PDFs and images with zero cloud dependencies.
+            Privacy-first file conversion platform with 40+ utilities for PDF, Word, Excel, Images,
+            OCR recognition, and document intelligence.
           </p>
-
-          {/* Call to Actions */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <button
-              onClick={() => setIsOcrStudioOpen(true)}
-              className="flex items-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 shadow-xl shadow-indigo-600/25 border border-white/10 transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Launch In-House OCR Studio</span>
-              <ArrowRight className="w-4 h-4 ml-1" />
-            </button>
-
-            <button
-              onClick={() => setIsBenchmarkOpen(true)}
-              className="flex items-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-semibold text-slate-200 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-white/10 transition-all hover:scale-[1.02]"
-            >
-              <Cpu className="w-4 h-4 text-purple-400" />
-              <span>Inspect Architecture & Benchmarks</span>
-            </button>
-          </div>
-
-          {/* Quick Metrics */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 max-w-3xl mx-auto">
-            <div className="p-3 rounded-2xl bg-slate-900/40 border border-white/5">
-              <p className="text-xl font-bold text-white">40+</p>
-              <p className="text-[11px] text-slate-400">Pro Tools Built-in</p>
-            </div>
-            <div className="p-3 rounded-2xl bg-slate-900/40 border border-white/5">
-              <p className="text-xl font-bold text-emerald-400">100%</p>
-              <p className="text-[11px] text-slate-400">Privacy & In-Memory</p>
-            </div>
-            <div className="p-3 rounded-2xl bg-slate-900/40 border border-white/5">
-              <p className="text-xl font-bold text-purple-400">In-House</p>
-              <p className="text-[11px] text-slate-400">Custom OCR Engine</p>
-            </div>
-            <div className="p-3 rounded-2xl bg-slate-900/40 border border-white/5">
-              <p className="text-xl font-bold text-indigo-400">Java 21</p>
-              <p className="text-[11px] text-slate-400">PDFBox 3 & Spring Boot</p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -230,40 +181,7 @@ function App() {
           </div>
         )}
 
-        {/* Bottom Feature Showcase */}
-        <section className="pt-10 border-t border-white/5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="p-5 rounded-2xl glass-card border border-white/5 space-y-2">
-              <div className="w-9 h-9 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-3">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <h3 className="text-sm font-semibold text-white">100% Privacy by Design</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Documents are processed in isolated transient storage. Zero third-party telemetry, no AI model scraping, and automatic disk hygiene.
-              </p>
-            </div>
 
-            <div className="p-5 rounded-2xl glass-card border border-white/5 space-y-2">
-              <div className="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-3">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <h3 className="text-sm font-semibold text-white">Proprietary In-House OCR</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Includes connected component layout analysis, deskew projection algorithms, and multi-font prototype recognizers for searchable PDFs and DOCX.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-2xl glass-card border border-white/5 space-y-2">
-              <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-3">
-                <Zap className="w-5 h-5" />
-              </div>
-              <h3 className="text-sm font-semibold text-white">High-Throughput Engine</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Powered by Java 21 virtual threads, Apache PDFBox 3.0, Apache POI 5.3, and TwelveMonkeys image codecs for fast operations.
-              </p>
-            </div>
-          </div>
-        </section>
       </main>
 
       {/* Footer */}
