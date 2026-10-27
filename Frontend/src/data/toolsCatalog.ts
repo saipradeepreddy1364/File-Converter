@@ -3,18 +3,6 @@ import type { ToolMetadata } from '../types';
 export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
   "Convert to PDF": [
     {
-      id: "pptx-to-pdf",
-      name: "PowerPoint to PDF",
-      category: "Convert to PDF",
-      description: "Convert PPT and PPTX presentation slides into formatted PDF documents.",
-      icon: "Presentation",
-      badge: "Popular",
-      route: "/api/convert/to-pdf",
-      acceptedFormats: [".pptx", ".ppt"],
-      outputFormats: [".pdf"],
-      isMultiFile: false
-    },
-    {
       id: "jpg-to-pdf",
       name: "Images to PDF",
       category: "Convert to PDF",
@@ -35,6 +23,18 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       icon: "FileType",
       route: "/api/convert/to-pdf",
       acceptedFormats: [".docx"],
+      outputFormats: [".pdf"],
+      isMultiFile: false
+    },
+    {
+      id: "pptx-to-pdf",
+      name: "PowerPoint to PDF",
+      category: "Convert to PDF",
+      description: "Convert PPT and PPTX presentation slides into formatted PDF documents.",
+      icon: "Presentation",
+      badge: "Popular",
+      route: "/api/convert/to-pdf",
+      acceptedFormats: [".pptx", ".ppt"],
       outputFormats: [".pdf"],
       isMultiFile: false
     },
@@ -225,6 +225,18 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
   ],
   "Convert from PDF": [
     {
+      id: "pdf-to-docx",
+      name: "PDF to Word (DOCX)",
+      category: "Convert from PDF",
+      description: "Convert PDF to editable Word document using structural parser & OCR.",
+      icon: "FileWord",
+      badge: "Popular",
+      route: "/api/convert/from-pdf",
+      acceptedFormats: [".pdf"],
+      outputFormats: [".docx"],
+      isMultiFile: false
+    },
+    {
       id: "pdf-to-pptx",
       name: "PDF to PowerPoint (PPTX)",
       category: "Convert from PDF",
@@ -246,18 +258,6 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       route: "/api/convert/from-pdf",
       acceptedFormats: [".pdf"],
       outputFormats: [".zip", ".jpg", ".png", ".webp"],
-      isMultiFile: false
-    },
-    {
-      id: "pdf-to-docx",
-      name: "PDF to Word (DOCX)",
-      category: "Convert from PDF",
-      description: "Convert PDF to editable Word document using structural parser & OCR.",
-      icon: "FileWord",
-      badge: "Popular",
-      route: "/api/convert/from-pdf",
-      acceptedFormats: [".pdf"],
-      outputFormats: [".docx"],
       isMultiFile: false
     },
     {

@@ -31,21 +31,25 @@ function App() {
       });
   }, []);
 
-  // Flatten tools
+  // Flatten tools with user-requested first row priority:
+  // 1: Image to PDF, 2: Word to PDF, 3: PDF to Word, 4: PPT to PDF
   const allTools = useMemo(() => {
     const list: ToolMetadata[] = [];
     Object.values(catalog).forEach((categoryTools) => {
       list.push(...categoryTools);
     });
 
-    // Ensure PowerPoint to PDF is on the first row (position 0)
-    const pptxIdx = list.findIndex((t) => t.id === 'pptx-to-pdf');
-    if (pptxIdx > 0) {
-      const [pptxTool] = list.splice(pptxIdx, 1);
-      list.unshift(pptxTool);
-    }
+    const TOP_ROW_ORDER = ['jpg-to-pdf', 'docx-to-pdf', 'pdf-to-docx', 'pptx-to-pdf'];
+    const topRowTools: ToolMetadata[] = [];
 
-    return list;
+    TOP_ROW_ORDER.forEach((id) => {
+      const idx = list.findIndex((t) => t.id === id);
+      if (idx !== -1) {
+        topRowTools.push(list.splice(idx, 1)[0]);
+      }
+    });
+
+    return [...topRowTools, ...list];
   }, [catalog]);
 
   // Categories list

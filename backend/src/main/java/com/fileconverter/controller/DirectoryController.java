@@ -59,9 +59,9 @@ public class DirectoryController {
 
         // 1. Convert to PDF
         catalog.put("Convert to PDF", Arrays.asList(
-                new ToolMetadata("pptx-to-pdf", "PowerPoint to PDF", "Convert to PDF", "Convert PPT and PPTX presentation slides into formatted PDF documents.", "Presentation", "Popular", "/api/convert/to-pdf", Arrays.asList(".pptx", ".ppt"), Arrays.asList(".pdf"), false),
                 new ToolMetadata("jpg-to-pdf", "JPG / PNG to PDF", "Convert to PDF", "Transform images (JPG, PNG, WebP, BMP, TIFF) into a high-res PDF.", "FileImage", "Popular", "/api/convert/to-pdf", Arrays.asList(".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tiff"), Arrays.asList(".pdf"), true),
                 new ToolMetadata("docx-to-pdf", "DOCX to PDF", "Convert to PDF", "Convert Microsoft Word documents into clean, formatted PDF files.", "FileType", "", "/api/convert/to-pdf", Arrays.asList(".docx"), Arrays.asList(".pdf"), false),
+                new ToolMetadata("pptx-to-pdf", "PowerPoint to PDF", "Convert to PDF", "Convert PPT and PPTX presentation slides into formatted PDF documents.", "Presentation", "Popular", "/api/convert/to-pdf", Arrays.asList(".pptx", ".ppt"), Arrays.asList(".pdf"), false),
                 new ToolMetadata("xlsx-to-pdf", "Excel to PDF", "Convert to PDF", "Render spreadsheet sheets into landscape formatted PDF tables.", "Table", "", "/api/convert/to-pdf", Arrays.asList(".xlsx", ".xls"), Arrays.asList(".pdf"), false),
                 new ToolMetadata("csv-to-pdf", "CSV to PDF", "Convert to PDF", "Convert comma-separated data tables into aligned PDF documents.", "FileSpreadsheet", "", "/api/convert/to-pdf", Arrays.asList(".csv"), Arrays.asList(".pdf"), false),
                 new ToolMetadata("txt-to-pdf", "TXT to PDF", "Convert to PDF", "Convert plain text documents with word-wrap and pagination into PDF.", "FileText", "", "/api/convert/to-pdf", Arrays.asList(".txt"), Arrays.asList(".pdf"), false),
@@ -70,9 +70,9 @@ public class DirectoryController {
 
         // 2. Convert from PDF
         catalog.put("Convert from PDF", Arrays.asList(
+                new ToolMetadata("pdf-to-docx", "PDF to DOCX", "Convert from PDF", "Convert PDF to editable Word document using structural parser & OCR.", "FileWord", "Popular", "/api/convert/from-pdf", Arrays.asList(".pdf"), Arrays.asList(".docx"), false),
                 new ToolMetadata("pdf-to-pptx", "PDF to PowerPoint (PPTX)", "Convert from PDF", "Convert PDF pages into high-resolution editable presentation slides.", "Presentation", "Popular", "/api/convert/from-pdf", Arrays.asList(".pdf"), Arrays.asList(".pptx"), false),
                 new ToolMetadata("pdf-to-jpg", "PDF to Images", "Convert from PDF", "Render every PDF page into high-resolution JPG, PNG, or WebP images.", "Image", "Popular", "/api/convert/from-pdf", Arrays.asList(".pdf"), Arrays.asList(".zip", ".jpg", ".png", ".webp"), false),
-                new ToolMetadata("pdf-to-docx", "PDF to DOCX", "Convert from PDF", "Convert PDF to editable Word document using structural parser & OCR.", "FileWord", "Popular", "/api/convert/from-pdf", Arrays.asList(".pdf"), Arrays.asList(".docx"), false),
                 new ToolMetadata("pdf-to-txt", "PDF to TXT", "Convert from PDF", "Extract clean plain text with automatic OCR fallback for scanned pages.", "FileText", "", "/api/convert/from-pdf", Arrays.asList(".pdf"), Arrays.asList(".txt"), false),
                 new ToolMetadata("pdf-to-markdown", "PDF to Markdown", "Convert from PDF", "Convert PDF paragraphs, headings, and lists into structured Markdown.", "Code", "", "/api/convert/from-pdf", Arrays.asList(".pdf"), Arrays.asList(".md"), false),
                 new ToolMetadata("pdf-to-html", "PDF to HTML", "Convert from PDF", "Transform PDF documents into responsive HTML web pages.", "Globe", "", "/api/convert/from-pdf", Arrays.asList(".pdf"), Arrays.asList(".html"), false),
