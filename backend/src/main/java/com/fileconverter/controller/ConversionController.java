@@ -139,11 +139,19 @@ public class ConversionController {
 
     @PostMapping({"/from-pdf", "/from-pdf/**"})
     public ResponseEntity<ConversionJob> convertFromPdf(
-            @RequestParam("file") MultipartFile file,
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            @RequestParam(value = "files", required = false) List<MultipartFile> files,
             @RequestParam(value = "targetFormat", required = false) String targetFormat,
             @RequestParam(value = "dpi", defaultValue = "200") int dpi,
             jakarta.servlet.http.HttpServletRequest request
     ) {
+        if (file == null && files != null && !files.isEmpty()) {
+            file = files.get(0);
+        }
+        if (file == null || file.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
         if (targetFormat == null || targetFormat.trim().isEmpty()) {
             String uri = request.getRequestURI();
             int lastSlash = uri.lastIndexOf('/');

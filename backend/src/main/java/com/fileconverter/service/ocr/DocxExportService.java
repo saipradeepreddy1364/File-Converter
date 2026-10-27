@@ -61,7 +61,7 @@ public class DocxExportService {
                         currentPara.setSpacingAfter(120);
                     }
                     XWPFRun lineRun = currentPara.createRun();
-                    lineRun.setText(line.getText());
+                    lineRun.setText(sanitizeXmlText(line.getText()));
                     lineRun.setFontFamily("Calibri");
                     lineRun.setFontSize(11);
                     currentPara.createRun().addBreak();
@@ -92,7 +92,7 @@ public class DocxExportService {
                 String[] lines = p.split("\r?\n");
                 for (int i = 0; i < lines.length; i++) {
                     XWPFRun run = para.createRun();
-                    run.setText(lines[i]);
+                    run.setText(sanitizeXmlText(lines[i]));
                     run.setFontFamily("Calibri");
                     run.setFontSize(11);
                     if (i < lines.length - 1) {
@@ -105,5 +105,17 @@ public class DocxExportService {
                 doc.write(fos);
             }
         }
+    }
+
+    private String sanitizeXmlText(String text) {
+        if (text == null) return "";
+        StringBuilder sb = new StringBuilder(text.length());
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c == 0x9 || c == 0xA || c == 0xD || (c >= 0x20 && c <= 0xD7FF) || (c >= 0xE000 && c <= 0xFFFD)) {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 }
