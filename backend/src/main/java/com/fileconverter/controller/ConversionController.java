@@ -45,8 +45,19 @@ public class ConversionController {
 
     @PostMapping({"/to-pdf", "/to-pdf/**"})
     public ResponseEntity<ConversionJob> convertToPdf(
-            @RequestParam("file") MultipartFile file
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            @RequestParam(value = "files", required = false) List<MultipartFile> files
     ) {
+        if ((files == null || files.isEmpty()) && file != null) {
+            files = Collections.singletonList(file);
+        }
+        if (files == null || files.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (files.size() > 1) {
+            return convertMultipleImagesToPdf(files);
+        }
+        file = files.get(0);
         String originalName = file.getOriginalFilename();
         ConversionJob job = storageService.createJob("Convert to PDF", originalName);
 

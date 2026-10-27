@@ -1,5 +1,6 @@
 package com.fileconverter.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class ToolMetadata {
@@ -12,6 +13,8 @@ public class ToolMetadata {
     private String route;
     private List<String> acceptedFormats;
     private List<String> outputFormats;
+
+    @JsonProperty("isMultiFile")
     private boolean isMultiFile;
 
     public ToolMetadata() {}
@@ -56,6 +59,12 @@ public class ToolMetadata {
     public List<String> getOutputFormats() { return outputFormats; }
     public void setOutputFormats(List<String> outputFormats) { this.outputFormats = outputFormats; }
 
+    @JsonProperty("isMultiFile")
     public boolean isMultiFile() { return isMultiFile; }
-    public void setMultiFile(boolean multiFile) { isMultiFile = multiFile; }
+
+    @JsonProperty("isMultiFile")
+    public void setMultiFile(boolean multiFile) { this.isMultiFile = multiFile; }
+
+    @JsonProperty("multiFile")
+    public boolean getMultiFile() { return isMultiFile; }
 }

@@ -12,7 +12,8 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       route: "/api/pdf/merge",
       acceptedFormats: [".pdf"],
       outputFormats: [".pdf"],
-      isMultiFile: true
+      isMultiFile: true,
+      multiFile: true
     },
     {
       id: "split-pdf",
@@ -151,7 +152,8 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       route: "/api/convert/to-pdf",
       acceptedFormats: [".jpg", ".jpeg", ".png", ".webp", ".bmp"],
       outputFormats: [".pdf"],
-      isMultiFile: true
+      isMultiFile: true,
+      multiFile: true
     },
     {
       id: "docx-to-pdf",

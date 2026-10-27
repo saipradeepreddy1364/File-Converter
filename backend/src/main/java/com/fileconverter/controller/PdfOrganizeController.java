@@ -32,7 +32,12 @@ public class PdfOrganizeController {
     }
 
     @PostMapping("/merge")
-    public ResponseEntity<ConversionJob> mergePdfs(@RequestParam("files") List<MultipartFile> files) {
+    public ResponseEntity<ConversionJob> mergePdfs(
+            @RequestParam(value = "files", required = false) List<MultipartFile> files,
+            @RequestParam(value = "file", required = false) List<MultipartFile> singleFiles) {
+        if (files == null || files.isEmpty()) {
+            files = singleFiles;
+        }
         if (files == null || files.size() < 2) {
             return ResponseEntity.badRequest().build();
         }

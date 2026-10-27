@@ -25,6 +25,16 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
   const [compressionLevel, setCompressionLevel] = useState<'low' | 'medium' | 'high'>('medium');
   const [targetFormat, setTargetFormat] = useState(tool.outputFormats[0]?.replace('.', '') || 'pdf');
 
+  const isMergeTool = tool.id === 'merge-pdf' || tool.name.toLowerCase().includes('merge');
+  const isMulti = Boolean(
+    tool.isMultiFile ||
+    tool.multiFile ||
+    isMergeTool ||
+    tool.id === 'jpg-to-pdf' ||
+    tool.name.toLowerCase().includes('multiple')
+  );
+  const isBelowMinimum = isMergeTool && selectedFiles.length < 2;
+
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(true);
@@ -39,7 +49,7 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
     setIsDragging(false);
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const newFiles = Array.from(e.dataTransfer.files);
-      if (tool.isMultiFile) {
+      if (isMulti) {
         setSelectedFiles((prev) => [...prev, ...newFiles]);
       } else {
         setSelectedFiles([newFiles[0]]);
@@ -51,7 +61,7 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const newFiles = Array.from(e.target.files);
-      if (tool.isMultiFile) {
+      if (isMulti) {
         setSelectedFiles((prev) => [...prev, ...newFiles]);
       } else {
         setSelectedFiles([newFiles[0]]);
@@ -64,9 +74,6 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
   const removeFile = (index: number) => {
     setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
   };
-
-  const isMergeTool = tool.id === 'merge-pdf' || tool.name.toLowerCase().includes('merge');
-  const isBelowMinimum = isMergeTool && selectedFiles.length < 2;
 
   const handleSubmit = async () => {
     if (selectedFiles.length === 0 && tool.acceptedFormats.length > 0) {
@@ -84,8 +91,11 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
 
     try {
       const formData = new FormData();
-      if (tool.isMultiFile) {
-        selectedFiles.forEach((file) => formData.append('files', file));
+      if (isMulti) {
+        selectedFiles.forEach((file) => {
+          formData.append('files', file);
+          formData.append('file', file);
+        });
       } else if (selectedFiles.length > 0) {
         formData.append('file', selectedFiles[0]);
       }
@@ -313,7 +323,7 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
                 <input
                   id="tool-file-input"
                   type="file"
-                  multiple={tool.isMultiFile}
+                  multiple={isMulti}
                   accept={tool.acceptedFormats.join(',')}
                   onChange={handleFileInput}
                   className="hidden"
@@ -342,15 +352,24 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
                     <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
                       Selected Files ({selectedFiles.length}{isMergeTool ? ' / 2 min' : ''})
                     </span>
-                    {tool.isMultiFile && (
+                    <div className="flex items-center gap-3">
+                      {isMulti && (
+                        <button
+                          type="button"
+                          onClick={() => document.getElementById('tool-file-input')?.click()}
+                          className="text-xs text-indigo-400 hover:text-indigo-300 font-medium cursor-pointer"
+                        >
+                          + Add more files
+                        </button>
+                      )}
                       <button
                         type="button"
-                        onClick={() => document.getElementById('tool-file-input')?.click()}
-                        className="text-xs text-indigo-400 hover:text-indigo-300 font-medium cursor-pointer"
+                        onClick={() => setSelectedFiles([])}
+                        className="text-xs text-slate-400 hover:text-rose-400 transition-colors cursor-pointer"
                       >
-                        + Add more files
+                        Clear all
                       </button>
-                    )}
+                    </div>
                   </div>
                   <div className="max-h-36 overflow-y-auto space-y-1.5 pr-1">
                     {selectedFiles.map((file, idx) => (

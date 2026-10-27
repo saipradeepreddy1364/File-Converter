@@ -8,7 +8,8 @@ export interface ToolMetadata {
   route: string;
   acceptedFormats: string[];
   outputFormats: string[];
-  isMultiFile: boolean;
+  isMultiFile?: boolean;
+  multiFile?: boolean;
 }
 
 export interface BoundingBox {
