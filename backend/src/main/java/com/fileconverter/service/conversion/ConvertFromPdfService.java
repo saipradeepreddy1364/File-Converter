@@ -199,4 +199,39 @@ public class ConvertFromPdfService {
             }
         }
     }
+
+    public void pdfToPptx(File inputFile, File outputFile) throws IOException {
+        try (PDDocument doc = Loader.loadPDF(inputFile);
+             org.apache.poi.xslf.usermodel.XMLSlideShow ppt = new org.apache.poi.xslf.usermodel.XMLSlideShow();
+             FileOutputStream fos = new FileOutputStream(outputFile)) {
+
+            PDFRenderer renderer = new PDFRenderer(doc);
+            int total = doc.getNumberOfPages();
+
+            if (total > 0) {
+                org.apache.pdfbox.pdmodel.common.PDRectangle firstBox = doc.getPage(0).getMediaBox();
+                int sWidth = (int) Math.round(firstBox.getWidth());
+                int sHeight = (int) Math.round(firstBox.getHeight());
+                if (sWidth > 0 && sHeight > 0) {
+                    ppt.setPageSize(new java.awt.Dimension(sWidth, sHeight));
+                }
+            }
+            java.awt.Dimension slideSize = ppt.getPageSize();
+
+            for (int i = 0; i < total; i++) {
+                org.apache.poi.xslf.usermodel.XSLFSlide slide = ppt.createSlide();
+                BufferedImage pageImage = renderer.renderImageWithDPI(i, 150, ImageType.RGB);
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(pageImage, "png", baos);
+                byte[] bytes = baos.toByteArray();
+
+                org.apache.poi.xslf.usermodel.XSLFPictureData pd = ppt.addPicture(bytes, org.apache.poi.sl.usermodel.PictureData.PictureType.PNG);
+                org.apache.poi.xslf.usermodel.XSLFPictureShape pic = slide.createPicture(pd);
+                pic.setAnchor(new java.awt.Rectangle(0, 0, slideSize.width, slideSize.height));
+            }
+
+            ppt.write(fos);
+        }
+    }
 }

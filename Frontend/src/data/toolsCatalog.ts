@@ -165,6 +165,18 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       isMultiFile: false
     },
     {
+      id: "pptx-to-pdf",
+      name: "PowerPoint to PDF",
+      category: "Convert to PDF",
+      description: "Convert PPT and PPTX presentation slides into formatted PDF documents.",
+      icon: "Presentation",
+      badge: "Popular",
+      route: "/api/convert/to-pdf",
+      acceptedFormats: [".pptx", ".ppt"],
+      outputFormats: [".pdf"],
+      isMultiFile: false
+    },
+    {
       id: "xlsx-to-pdf",
       name: "Excel to PDF",
       category: "Convert to PDF",
@@ -232,6 +244,18 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       route: "/api/convert/from-pdf",
       acceptedFormats: [".pdf"],
       outputFormats: [".docx"],
+      isMultiFile: false
+    },
+    {
+      id: "pdf-to-pptx",
+      name: "PDF to PowerPoint (PPTX)",
+      category: "Convert from PDF",
+      description: "Convert PDF pages into high-resolution editable presentation slides.",
+      icon: "Presentation",
+      badge: "Popular",
+      route: "/api/convert/from-pdf",
+      acceptedFormats: [".pdf"],
+      outputFormats: [".pptx"],
       isMultiFile: false
     },
     {

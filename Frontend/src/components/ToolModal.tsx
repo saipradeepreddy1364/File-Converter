@@ -104,6 +104,7 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
         let fmt = targetFormat;
         if (tool.id === 'pdf-to-jpg') fmt = 'jpg';
         else if (tool.id === 'pdf-to-docx') fmt = 'docx';
+        else if (tool.id === 'pdf-to-pptx') fmt = 'pptx';
         else if (tool.id === 'pdf-to-txt') fmt = 'txt';
         else if (tool.id === 'pdf-to-markdown') fmt = 'md';
         else if (tool.id === 'pdf-to-html') fmt = 'html';
@@ -141,6 +142,9 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
     const name = tool.name;
     const lower = name.toLowerCase();
 
+    if (lower.includes('pdf to ppt') || lower.includes('pdf to powerpoint')) {
+      return 'Convert to PowerPoint';
+    }
     if (lower.includes('to pdf')) {
       return 'Convert to PDF';
     }

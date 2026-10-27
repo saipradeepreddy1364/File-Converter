@@ -6,7 +6,7 @@ import {
   Table, FileSpreadsheet, BookOpen, Image, Code, Globe,
   Grid, Lock, Unlock, EyeOff, GitCompare, ShieldCheck,
   Search, Sparkles, Repeat, Maximize, Sliders, Braces, QrCode, Scan,
-  Fingerprint, FileCheck, FileEdit
+  Fingerprint, FileCheck, FileEdit, Presentation
 } from 'lucide-react';
 
 interface ToolCardProps {
@@ -20,7 +20,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Table, FileSpreadsheet, BookOpen, Image, FileWord: FileEdit, Code, Globe,
   Grid, Lock, Unlock, EyeOff, GitCompare, ShieldCheck,
   ScanText: Scan, Search, Sparkles, Repeat, Maximize, Sliders, Braces,
-  QrCode, Scan, Fingerprint
+  QrCode, Scan, Fingerprint, Presentation
 };
 
 export const ToolCard: React.FC<ToolCardProps> = ({ tool, onClick }) => {

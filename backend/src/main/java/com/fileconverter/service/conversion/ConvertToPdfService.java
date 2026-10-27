@@ -312,6 +312,49 @@ public class ConvertToPdfService {
         }
     }
 
+    public void pptxToPdf(File pptxFile, File outputFile) throws IOException {
+        try (FileInputStream fis = new FileInputStream(pptxFile);
+             org.apache.poi.xslf.usermodel.XMLSlideShow ppt = new org.apache.poi.xslf.usermodel.XMLSlideShow(fis);
+             PDDocument pdf = new PDDocument()) {
+
+            java.awt.Dimension pgsize = ppt.getPageSize();
+            int width = pgsize != null && pgsize.width > 0 ? pgsize.width : 720;
+            int height = pgsize != null && pgsize.height > 0 ? pgsize.height : 540;
+
+            for (org.apache.poi.xslf.usermodel.XSLFSlide slide : ppt.getSlides()) {
+                BufferedImage slideImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+                java.awt.Graphics2D graphics = slideImage.createGraphics();
+                graphics.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                graphics.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING, java.awt.RenderingHints.VALUE_RENDER_QUALITY);
+                graphics.setPaint(java.awt.Color.WHITE);
+                graphics.fill(new java.awt.geom.Rectangle2D.Float(0, 0, width, height));
+
+                try {
+                    slide.draw(graphics);
+                } catch (Exception e) {
+                    log.warn("Vector rendering for slide failed, drawing title fallback: {}", e.getMessage());
+                    graphics.setPaint(java.awt.Color.BLACK);
+                    graphics.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 20));
+                    String title = slide.getTitle();
+                    graphics.drawString(title != null ? title : "Presentation Slide", 50, 80);
+                } finally {
+                    graphics.dispose();
+                }
+
+                PDRectangle pageSize = new PDRectangle(width, height);
+                PDPage page = new PDPage(pageSize);
+                pdf.addPage(page);
+
+                PDImageXObject pdImage = JPEGFactory.createFromImage(pdf, slideImage, 0.92f);
+                try (PDPageContentStream cs = new PDPageContentStream(pdf, page)) {
+                    cs.drawImage(pdImage, 0, 0, width, height);
+                }
+            }
+
+            pdf.save(outputFile);
+        }
+    }
+
     private String sanitizeText(String text) {
         if (text == null) return "";
         StringBuilder sb = new StringBuilder();

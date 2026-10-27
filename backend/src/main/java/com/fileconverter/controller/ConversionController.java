@@ -71,6 +71,10 @@ public class ConversionController {
                 case "docx":
                     convertToPdfService.docxToPdf(inputFile, outputFile);
                     break;
+                case "ppt":
+                case "pptx":
+                    convertToPdfService.pptxToPdf(inputFile, outputFile);
+                    break;
                 case "xlsx":
                 case "xls":
                     convertToPdfService.xlsxToPdf(inputFile, outputFile);
@@ -164,6 +168,13 @@ public class ConversionController {
                     outputName = baseName + "_" + UUID.randomUUID().toString().substring(0, 8) + ".docx";
                     outputFile = storageService.getRootLocation().resolve(outputName).toFile();
                     convertFromPdfService.pdfToDocx(inputFile, outputFile);
+                    break;
+                case "ppt":
+                case "pptx":
+                case "powerpoint":
+                    outputName = baseName + "_" + UUID.randomUUID().toString().substring(0, 8) + ".pptx";
+                    outputFile = storageService.getRootLocation().resolve(outputName).toFile();
+                    convertFromPdfService.pdfToPptx(inputFile, outputFile);
                     break;
                 case "txt":
                     outputName = baseName + "_" + UUID.randomUUID().toString().substring(0, 8) + ".txt";
