@@ -1,18 +1,27 @@
 import type { ToolMetadata, ConversionJob, OcrResult, OcrEvaluationReport } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+const RAW_API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+const API_BASE_URL = RAW_API_BASE_URL.replace(/\/+$/, '');
+
+const getUrl = (path: string): string => {
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path;
+  }
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  return `${API_BASE_URL}${cleanPath}`;
+};
 
 export const apiService = {
   // Tool catalog
   async getCatalog(): Promise<Record<string, ToolMetadata[]>> {
-    const res = await fetch(`${API_BASE_URL}/api/tools/catalog`);
+    const res = await fetch(getUrl('/api/tools/catalog'));
     if (!res.ok) throw new Error('Failed to load tool catalog');
     return res.json();
   },
 
   // Health check
   async getHealth(): Promise<Record<string, any>> {
-    const res = await fetch(`${API_BASE_URL}/api/health`);
+    const res = await fetch(getUrl('/api/health'));
     if (!res.ok) throw new Error('Failed to fetch backend health');
     return res.json();
   },
@@ -34,7 +43,7 @@ export const apiService = {
     formData.append('enhanceContrast', String(options.enhanceContrast !== false));
     formData.append('outputFormat', options.outputFormat || 'txt');
 
-    const res = await fetch(`${API_BASE_URL}/api/ocr/process`, {
+    const res = await fetch(getUrl('/api/ocr/process'), {
       method: 'POST',
       body: formData,
     });
@@ -47,14 +56,14 @@ export const apiService = {
 
   // OCR result
   async getOcrResult(jobId: string): Promise<OcrResult> {
-    const res = await fetch(`${API_BASE_URL}/api/ocr/result/${jobId}`);
+    const res = await fetch(getUrl(`/api/ocr/result/${jobId}`));
     if (!res.ok) throw new Error('Failed to fetch OCR result');
     return res.json();
   },
 
   // OCR evaluation benchmark
   async runOcrEvaluation(): Promise<OcrEvaluationReport> {
-    const res = await fetch(`${API_BASE_URL}/api/ocr/evaluate`, {
+    const res = await fetch(getUrl('/api/ocr/evaluate'), {
       method: 'POST',
     });
     if (!res.ok) throw new Error('Failed to run OCR evaluation');
@@ -63,15 +72,14 @@ export const apiService = {
 
   // OCR Engine architecture metadata
   async getOcrInfo(): Promise<Record<string, any>> {
-    const res = await fetch(`${API_BASE_URL}/api/ocr/info`);
+    const res = await fetch(getUrl('/api/ocr/info'));
     if (!res.ok) throw new Error('Failed to load OCR architecture info');
     return res.json();
   },
 
   // Generic file conversion / tool execution
   async executeTool(endpoint: string, formData: FormData): Promise<ConversionJob> {
-    const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
-    const res = await fetch(url, {
+    const res = await fetch(getUrl(endpoint), {
       method: 'POST',
       body: formData,
     });
@@ -84,6 +92,6 @@ export const apiService = {
 
   // Direct download link helper
   getDownloadUrl(fileName: string): string {
-    return `${API_BASE_URL}/api/download/${fileName}`;
+    return getUrl(`/api/download/${fileName}`);
   },
 };

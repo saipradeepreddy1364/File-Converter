@@ -9,7 +9,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       description: "Combine multiple PDFs in your chosen order into one document.",
       icon: "Layers",
       badge: "Popular",
-      route: "/api/pdf/organize/merge",
+      route: "/api/pdf/merge",
       acceptedFormats: [".pdf"],
       outputFormats: [".pdf"],
       isMultiFile: true
@@ -21,7 +21,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       description: "Extract selected pages or separate every page into a standalone PDF.",
       icon: "Scissors",
       badge: "Essential",
-      route: "/api/pdf/organize/split",
+      route: "/api/pdf/split",
       acceptedFormats: [".pdf"],
       outputFormats: [".pdf", ".zip"],
       isMultiFile: false
@@ -32,7 +32,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Organize PDF",
       description: "Delete unnecessary pages from your PDF file with custom page numbers.",
       icon: "Trash2",
-      route: "/api/pdf/organize/remove-pages",
+      route: "/api/pdf/remove-pages",
       acceptedFormats: [".pdf"],
       outputFormats: [".pdf"],
       isMultiFile: false
@@ -43,7 +43,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Organize PDF",
       description: "Rotate pages 90, 180, or 270 degrees clockwise permanently.",
       icon: "RotateCw",
-      route: "/api/pdf/organize/rotate",
+      route: "/api/pdf/rotate",
       acceptedFormats: [".pdf"],
       outputFormats: [".pdf"],
       isMultiFile: false
@@ -54,7 +54,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Organize PDF",
       description: "Stamp formatted page numbering with custom positioning and formatting.",
       icon: "Hash",
-      route: "/api/pdf/organize/page-numbers",
+      route: "/api/pdf/page-numbers",
       acceptedFormats: [".pdf"],
       outputFormats: [".pdf"],
       isMultiFile: false
@@ -65,7 +65,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Organize PDF",
       description: "Apply text watermarks with custom opacity and rotation angle.",
       icon: "Stamp",
-      route: "/api/pdf/organize/watermark",
+      route: "/api/pdf/watermark",
       acceptedFormats: [".pdf"],
       outputFormats: [".pdf"],
       isMultiFile: false
@@ -76,7 +76,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Organize PDF",
       description: "Invert the entire sequence of pages in your PDF instantly.",
       icon: "ArrowDownUp",
-      route: "/api/pdf/organize/reverse",
+      route: "/api/pdf/reverse",
       acceptedFormats: [".pdf"],
       outputFormats: [".pdf"],
       isMultiFile: false
@@ -87,7 +87,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Organize PDF",
       description: "Extract all embedded images from a PDF into a ZIP archive.",
       icon: "ImageDown",
-      route: "/api/pdf/organize/extract-images",
+      route: "/api/pdf/extract-images",
       acceptedFormats: [".pdf"],
       outputFormats: [".zip"],
       isMultiFile: false
@@ -98,7 +98,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Organize PDF",
       description: "Extract all readable embedded text content into a clean text file.",
       icon: "FileText",
-      route: "/api/pdf/organize/extract-text",
+      route: "/api/pdf/extract-text",
       acceptedFormats: [".pdf"],
       outputFormats: [".txt"],
       isMultiFile: false
@@ -148,7 +148,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       description: "Transform images (JPG, PNG, WebP, BMP) into a high-resolution PDF.",
       icon: "FileImage",
       badge: "Popular",
-      route: "/api/convert/to-pdf/images",
+      route: "/api/convert/to-pdf",
       acceptedFormats: [".jpg", ".jpeg", ".png", ".webp", ".bmp"],
       outputFormats: [".pdf"],
       isMultiFile: true
@@ -159,7 +159,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Convert to PDF",
       description: "Convert Microsoft Word documents into clean, formatted PDF files.",
       icon: "FileType",
-      route: "/api/convert/to-pdf/docx",
+      route: "/api/convert/to-pdf",
       acceptedFormats: [".docx"],
       outputFormats: [".pdf"],
       isMultiFile: false
@@ -170,7 +170,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Convert to PDF",
       description: "Render spreadsheet sheets into landscape formatted PDF tables.",
       icon: "Table",
-      route: "/api/convert/to-pdf/xlsx",
+      route: "/api/convert/to-pdf",
       acceptedFormats: [".xlsx", ".xls"],
       outputFormats: [".pdf"],
       isMultiFile: false
@@ -181,7 +181,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Convert to PDF",
       description: "Convert comma-separated data tables into aligned PDF documents.",
       icon: "FileSpreadsheet",
-      route: "/api/convert/to-pdf/csv",
+      route: "/api/convert/to-pdf",
       acceptedFormats: [".csv"],
       outputFormats: [".pdf"],
       isMultiFile: false
@@ -192,7 +192,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Convert to PDF",
       description: "Convert plain text documents with word-wrap and pagination into PDF.",
       icon: "FileText",
-      route: "/api/convert/to-pdf/txt",
+      route: "/api/convert/to-pdf",
       acceptedFormats: [".txt"],
       outputFormats: [".pdf"],
       isMultiFile: false
@@ -203,7 +203,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Convert to PDF",
       description: "Parse Markdown files and compile into clean PDF format.",
       icon: "BookOpen",
-      route: "/api/convert/to-pdf/markdown",
+      route: "/api/convert/to-pdf",
       acceptedFormats: [".md", ".markdown"],
       outputFormats: [".pdf"],
       isMultiFile: false
@@ -217,7 +217,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       description: "Render every PDF page into high-resolution JPG, PNG, or WebP images.",
       icon: "Image",
       badge: "Popular",
-      route: "/api/convert/from-pdf/images",
+      route: "/api/convert/from-pdf",
       acceptedFormats: [".pdf"],
       outputFormats: [".zip", ".jpg", ".png", ".webp"],
       isMultiFile: false
@@ -229,7 +229,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       description: "Convert PDF to editable Word document using structural parser & OCR.",
       icon: "FileWord",
       badge: "Popular",
-      route: "/api/convert/from-pdf/docx",
+      route: "/api/convert/from-pdf",
       acceptedFormats: [".pdf"],
       outputFormats: [".docx"],
       isMultiFile: false
@@ -240,7 +240,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Convert from PDF",
       description: "Extract clean plain text with automatic OCR fallback for scanned pages.",
       icon: "FileText",
-      route: "/api/convert/from-pdf/txt",
+      route: "/api/convert/from-pdf",
       acceptedFormats: [".pdf"],
       outputFormats: [".txt"],
       isMultiFile: false
@@ -251,7 +251,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Convert from PDF",
       description: "Convert PDF paragraphs, headings, and lists into structured Markdown.",
       icon: "Code",
-      route: "/api/convert/from-pdf/markdown",
+      route: "/api/convert/from-pdf",
       acceptedFormats: [".pdf"],
       outputFormats: [".md"],
       isMultiFile: false
@@ -262,7 +262,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Convert from PDF",
       description: "Transform PDF documents into responsive HTML web pages.",
       icon: "Globe",
-      route: "/api/convert/from-pdf/html",
+      route: "/api/convert/from-pdf",
       acceptedFormats: [".pdf"],
       outputFormats: [".html"],
       isMultiFile: false
@@ -273,7 +273,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Convert from PDF",
       description: "Extract structured tabular data from PDF into CSV or XLSX spreadsheets.",
       icon: "Grid",
-      route: "/api/convert/from-pdf/tables",
+      route: "/api/convert/from-pdf",
       acceptedFormats: [".pdf"],
       outputFormats: [".csv", ".xlsx"],
       isMultiFile: false
@@ -382,7 +382,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       description: "Extractive NLP summarization identifying the most salient passages.",
       icon: "Sparkles",
       badge: "AI Local",
-      route: "/api/intelligence/summarize",
+      route: "/api/ai/summarize",
       acceptedFormats: [".pdf", ".txt"],
       outputFormats: [".json"],
       isMultiFile: false
@@ -394,7 +394,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       description: "Automatically discover emails, dates, phone numbers, and monetary amounts.",
       icon: "Search",
       badge: "AI Local",
-      route: "/api/intelligence/entities",
+      route: "/api/ai/entities",
       acceptedFormats: [".pdf", ".txt"],
       outputFormats: [".json"],
       isMultiFile: false
@@ -477,7 +477,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Data & Utilities",
       description: "Generate high-resolution QR codes from URLs or text with error correction.",
       icon: "QrCode",
-      route: "/api/utility/qr-generate",
+      route: "/api/tools/qr/generate",
       acceptedFormats: [],
       outputFormats: [".png"],
       isMultiFile: false
@@ -488,7 +488,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       category: "Data & Utilities",
       description: "Decode and read QR codes and barcodes from uploaded images.",
       icon: "Scan",
-      route: "/api/utility/qr-scan",
+      route: "/api/tools/qr/scan",
       acceptedFormats: [".jpg", ".png", ".webp"],
       outputFormats: [".json"],
       isMultiFile: false
@@ -500,7 +500,7 @@ export const DEFAULT_CATALOG: Record<string, ToolMetadata[]> = {
       description: "Compute cryptographic MD5, SHA-1, and SHA-256 hashes of any file.",
       icon: "Fingerprint",
       badge: "Security",
-      route: "/api/utility/hashes",
+      route: "/api/tools/hashes",
       acceptedFormats: [],
       outputFormats: [".json"],
       isMultiFile: false

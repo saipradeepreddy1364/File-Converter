@@ -43,7 +43,7 @@ public class ConversionController {
         this.storageService = storageService;
     }
 
-    @PostMapping("/to-pdf")
+    @PostMapping({"/to-pdf", "/to-pdf/**"})
     public ResponseEntity<ConversionJob> convertToPdf(
             @RequestParam("file") MultipartFile file
     ) {
@@ -122,12 +122,23 @@ public class ConversionController {
         }
     }
 
-    @PostMapping("/from-pdf")
+    @PostMapping({"/from-pdf", "/from-pdf/**"})
     public ResponseEntity<ConversionJob> convertFromPdf(
             @RequestParam("file") MultipartFile file,
-            @RequestParam("targetFormat") String targetFormat,
-            @RequestParam(value = "dpi", defaultValue = "200") int dpi
+            @RequestParam(value = "targetFormat", required = false) String targetFormat,
+            @RequestParam(value = "dpi", defaultValue = "200") int dpi,
+            jakarta.servlet.http.HttpServletRequest request
     ) {
+        if (targetFormat == null || targetFormat.trim().isEmpty()) {
+            String uri = request.getRequestURI();
+            int lastSlash = uri.lastIndexOf('/');
+            if (lastSlash != -1 && lastSlash < uri.length() - 1) {
+                targetFormat = uri.substring(lastSlash + 1);
+            }
+            if (targetFormat == null || targetFormat.isEmpty() || targetFormat.equals("from-pdf")) {
+                targetFormat = "docx";
+            }
+        }
         String originalName = file.getOriginalFilename();
         ConversionJob job = storageService.createJob("PDF to " + targetFormat.toUpperCase(), originalName);
 

@@ -85,8 +85,15 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
       if (tool.id.includes('compress')) {
         formData.append('level', compressionLevel);
       }
-      if (tool.id.includes('format') || tool.id.includes('convert-image')) {
-        formData.append('targetFormat', targetFormat);
+      if (tool.id.includes('format') || tool.id.includes('convert-image') || tool.id.startsWith('pdf-to-')) {
+        let fmt = targetFormat;
+        if (tool.id === 'pdf-to-jpg') fmt = 'jpg';
+        else if (tool.id === 'pdf-to-docx') fmt = 'docx';
+        else if (tool.id === 'pdf-to-txt') fmt = 'txt';
+        else if (tool.id === 'pdf-to-markdown') fmt = 'md';
+        else if (tool.id === 'pdf-to-html') fmt = 'html';
+        else if (tool.id === 'pdf-to-tables') fmt = 'csv';
+        formData.append('targetFormat', fmt || 'pdf');
       }
 
       const job = await apiService.executeTool(tool.route, formData);
