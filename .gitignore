@@ -1,0 +1,46 @@
+# Build & Package artifacts
+target/
+**/target/
+dist/
+**/dist/
+dist-ssr/
+**/dist-ssr/
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Logs
+*.log
+logs/
+**/logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE and Editor files
+.idea/
+*.iml
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+
+# Environment variables & local configs
+.env.local
+.env.*.local
+*.local
+
+# Temporary / Scratch files
+*.tmp
+*.temp
+ocr_test_*.docx
+searchable_test_*.pdf
+merged_*.pdf
+protected_*.pdf
+unlocked_*.pdf
