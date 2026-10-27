@@ -122,6 +122,127 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
     setError(null);
   };
 
+  const getActionLabel = (): string => {
+    const name = tool.name;
+    const lower = name.toLowerCase();
+
+    if (lower.includes('to pdf')) {
+      return 'Convert to PDF';
+    }
+    if (lower.includes('pdf to docx') || lower.includes('pdf to word')) {
+      return 'Convert to Word (DOCX)';
+    }
+    if (lower.includes('pdf to images') || lower.includes('pdf to jpg')) {
+      return 'Convert to Images';
+    }
+    if (lower.includes('pdf to text') || lower.includes('pdf to txt')) {
+      return 'Extract to Text';
+    }
+    if (lower.includes('pdf to markdown')) {
+      return 'Convert to Markdown';
+    }
+    if (lower.includes('pdf to html')) {
+      return 'Convert to HTML';
+    }
+    if (lower.includes('pdf tables')) {
+      return 'Extract Tables to CSV';
+    }
+    if (lower.includes('merge')) {
+      return 'Merge PDFs';
+    }
+    if (lower.includes('split')) {
+      return 'Split PDF';
+    }
+    if (lower.includes('compress')) {
+      return 'Compress PDF';
+    }
+    if (lower.includes('protect') || lower.includes('encrypt')) {
+      return 'Protect PDF';
+    }
+    if (lower.includes('unlock') || lower.includes('decrypt')) {
+      return 'Unlock PDF';
+    }
+    if (lower.includes('watermark')) {
+      return 'Add Watermark';
+    }
+    if (lower.includes('rotate')) {
+      return 'Rotate PDF';
+    }
+    if (lower.includes('page number')) {
+      return 'Add Page Numbers';
+    }
+    if (lower.includes('remove page')) {
+      return 'Remove Pages';
+    }
+    if (lower.includes('reverse')) {
+      return 'Reverse Pages';
+    }
+    if (lower.includes('redact')) {
+      return 'Redact PDF';
+    }
+    if (lower.includes('compare')) {
+      return 'Compare PDFs';
+    }
+    if (lower.includes('remove metadata') || lower.includes('sanitize')) {
+      return 'Remove Metadata';
+    }
+    if (lower.includes('repair')) {
+      return 'Repair PDF';
+    }
+    if (lower.includes('flatten')) {
+      return 'Flatten PDF';
+    }
+    if (lower.includes('csv to xlsx') || lower.includes('to excel')) {
+      return 'Convert to Excel';
+    }
+    if (lower.includes('xlsx to csv') || lower.includes('to csv')) {
+      return 'Convert to CSV';
+    }
+    if (lower.includes('to json')) {
+      return 'Convert to JSON';
+    }
+    if (lower.includes('format') && lower.includes('json')) {
+      return 'Format JSON';
+    }
+    if (lower.includes('xml to json')) {
+      return 'Convert XML / JSON';
+    }
+    if (lower.includes('qr') && lower.includes('generate')) {
+      return 'Generate QR Code';
+    }
+    if (lower.includes('qr') && lower.includes('scan')) {
+      return 'Scan QR Code';
+    }
+    if (lower.includes('hash')) {
+      return 'Calculate Hashes';
+    }
+    if (lower.includes('word-count') || lower.includes('counter')) {
+      return 'Count Words';
+    }
+    if (lower.includes('extract images')) {
+      return 'Extract Images';
+    }
+    if (lower.includes('extract text')) {
+      return 'Extract Text';
+    }
+    if (lower.includes('ocr')) {
+      return 'Extract Text with OCR';
+    }
+    if (lower.includes('format converter') || lower.includes('convert-image')) {
+      return `Convert Image to ${targetFormat.toUpperCase()}`;
+    }
+    if (lower.includes('resize')) {
+      return 'Resize Image';
+    }
+
+    if (name.includes(' to ')) {
+      const parts = name.split(' to ');
+      return `Convert to ${parts[1]}`;
+    }
+
+    return name;
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
       <div className="relative w-full max-w-xl glass-panel rounded-3xl border border-white/10 shadow-2xl overflow-hidden bg-slate-900/95 flex flex-col max-h-[90vh]">
@@ -360,7 +481,7 @@ export const ToolModal: React.FC<ToolModalProps> = ({ tool, onClose }) => {
                   <span>Processing...</span>
                 </>
               ) : (
-                <span>Execute Tool</span>
+                <span>{getActionLabel()}</span>
               )}
             </button>
           )}
